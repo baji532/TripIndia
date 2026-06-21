@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
@@ -9,11 +9,7 @@ function TripDetail() {
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTrip();
-  }, [fetchTrip]);
-
-  const fetchTrip = async () => {
+  const fetchTrip = useCallback(async () => {
     const token = localStorage.getItem('token');
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/trips/${id}`, {
@@ -25,7 +21,11 @@ function TripDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchTrip();
+  }, [fetchTrip]);
 
   if (loading) {
     return (
