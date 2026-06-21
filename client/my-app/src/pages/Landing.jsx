@@ -164,7 +164,7 @@ function Landing() {
         <p className="text-2xl font-bold text-white mb-2">🧳 TripIndia</p>
         <p className="mb-4">Your AI-powered travel companion across India</p>
         <div className="flex justify-center gap-6 text-sm mb-6">
-          <a href="#" className="hover:text-orange-400 transition">About</a>
+          <a href="/" className="hover:text-orange-400 transition">About</a>
           <Link to="/contact" className="hover:text-orange-400 transition">Contact</Link>
           <Link to="/privacy" className="hover:text-orange-400 transition">Privacy</Link>
         </div>

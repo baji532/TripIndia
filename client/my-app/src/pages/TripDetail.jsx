@@ -11,7 +11,7 @@ function TripDetail() {
 
   useEffect(() => {
     fetchTrip();
-  }, [id]);
+  }, [fetchTrip]);
 
   const fetchTrip = async () => {
     const token = localStorage.getItem('token');
