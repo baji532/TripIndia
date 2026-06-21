@@ -16,7 +16,7 @@ function MyTrips() {
   const fetchTrips = async () => {
   const token = localStorage.getItem('token');
   try {
-    const res = await axios.get('http://localhost:5000/api/trips/my-trips', {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/trips/my-trips`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setTrips(res.data.trips);
@@ -27,13 +27,12 @@ function MyTrips() {
     setLoading(false);
   }
 };
-
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this trip?')) return;
 
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:5000/api/trips/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/trips/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTrips(trips.filter(t => t.id !== id));

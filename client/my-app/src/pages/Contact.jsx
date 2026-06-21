@@ -18,7 +18,7 @@ const handleSubmit = async (e) => {
   setSending(true);
   setError('');
   try {
-    await axios.post('http://localhost:5000/api/contact/send', formData);
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/contact/send`, formData);
     setSubmitted(true);
   } catch (err) {
     setError('Failed to send message. Please try again.');

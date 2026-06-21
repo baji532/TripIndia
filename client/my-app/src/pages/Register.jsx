@@ -26,7 +26,7 @@ function Register() {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, formData);
       setSuccess('Account created! Check your email 📧 Redirecting to login...');
       setTimeout(() => navigate('/login'), 2500);
     } catch (err) {

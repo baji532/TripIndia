@@ -28,7 +28,7 @@ const [saved, setSaved] = useState(false);
   setSaving(true);
   try {
     await axios.post(
-      'http://localhost:5000/api/trips/save',
+      `${process.env.REACT_APP_API_URL}/api/trips/save`,
       {
         destination,
         days,
@@ -53,7 +53,7 @@ const [saved, setSaved] = useState(false);
   setItinerary(null);
 
   try {
-    const res = await axios.post('http://localhost:5000/api/itinerary/generate', {
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/itinerary/generate`, {
       destination,
       days,
       budget,
