@@ -2,7 +2,7 @@
 
 TripIndia is a full-stack travel planning web app for exploring India. Search any destination, discover famous places, hotels, and local food, get a step-by-step journey planner from your city, and generate a personalized AI-powered day-by-day itinerary — all in one place.
 
-🔗 Live Demo: [Add your deployed link here once live]
+🔗 Live Demo: [https://trip-indial.vercel.app/]
 
 
 ✨ Features
