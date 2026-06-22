@@ -27,13 +27,13 @@ exports.register = (req, res) => {
         if (err) return res.status(500).json({ message: 'Error creating user' });
 
         // Send welcome email — don't block response if email fails
-        try {
-          await sendWelcomeEmail(email, name);
-        } catch (emailErr) {
-          console.error('Welcome email failed:', emailErr.message);
-        }
+       // Send welcome email in background — don't block registration response
+res.status(201).json({ message: 'User registered successfully' });
 
-        res.status(201).json({ message: 'User registered successfully' });
+// Fire and forget — email sends after response is already sent
+sendWelcomeEmail(email, name).catch(emailErr => {
+  console.error('Welcome email failed:', emailErr.message);
+});
       }
     );
   });
