@@ -1,9 +1,10 @@
-const { sendWelcomeEmail } = require('../config/mailer'); // we'll add a new function below
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp-relay.brevo.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.BREVO_USER,
     pass: process.env.BREVO_PASS
@@ -18,8 +19,8 @@ exports.sendContactMessage = async (req, res) => {
   }
 
   const mailOptions = {
-    from: `"TripIndia Contact Form" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_USER, // sends to yourself
+    from: `"TripIndia Contact" <${process.env.BREVO_USER}>`,
+    to: process.env.BREVO_USER,
     replyTo: email,
     subject: `New Contact Message from ${name}`,
     html: `
