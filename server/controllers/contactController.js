@@ -1,15 +1,8 @@
-const nodemailer = require('nodemailer');
+const SibApiV3Sdk = require('@getbrevo/brevo');
 require('dotenv').config();
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_USER,
-    pass: process.env.BREVO_PASS
-  }
-});
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+apiInstance.authentications['apiKey'].apiKey = process.env.BREVO_API_KEY;
 
 exports.sendContactMessage = async (req, res) => {
   const { name, email, message } = req.body;
@@ -18,22 +11,22 @@ exports.sendContactMessage = async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const mailOptions = {
-    from: `"TripIndia Contact" <${process.env.BREVO_USER}>`,
-    to: process.env.BREVO_USER,
-    replyTo: email,
-    subject: `New Contact Message from ${name}`,
-    html: `
+  try {
+    const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+
+    sendSmtpEmail.subject = `New Contact Message from ${name}`;
+    sendSmtpEmail.htmlContent = `
       <h3>New message from TripIndia Contact Form</h3>
       <p><b>Name:</b> ${name}</p>
       <p><b>Email:</b> ${email}</p>
       <p><b>Message:</b></p>
       <p>${message}</p>
-    `
-  };
+    `;
+    sendSmtpEmail.sender = { name: 'TripIndia', email: process.env.BREVO_USER };
+    sendSmtpEmail.to = [{ email: process.env.BREVO_USER, name: 'TripIndia Admin' }];
+    sendSmtpEmail.replyTo = { email: email, name: name };
 
-  try {
-    await transporter.sendMail(mailOptions);
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
     res.status(200).json({ message: 'Message sent successfully' });
   } catch (err) {
     console.error('Contact email error:', err.message);
