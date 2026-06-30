@@ -34,6 +34,9 @@ exports.sendContactMessage = async (req, res) => {
     res.status(200).json({ message: 'Message sent successfully' });
   } catch (err) {
     console.error('Contact email error:', err.message);
+    if (err.response) {
+      console.error('Brevo error details:', JSON.stringify(err.response.data));
+    }
     res.status(500).json({ message: 'Failed to send message' });
-  }
+}
 };
