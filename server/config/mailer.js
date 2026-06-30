@@ -5,7 +5,7 @@ const sendWelcomeEmail = async (toEmail, name) => {
   await axios.post(
     'https://api.brevo.com/v3/smtp/email',
     {
-      sender: { name: 'TripIndia', email: process.env.BREVO_USER },
+      sender: { name: 'TripIndia', email: process.env.SENDER_EMAIL },
       to: [{ email: toEmail, name: name }],
       subject: 'Welcome to TripIndia! 🎉',
       htmlContent: `

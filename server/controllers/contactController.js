@@ -12,7 +12,7 @@ exports.sendContactMessage = async (req, res) => {
     await axios.post(
       'https://api.brevo.com/v3/smtp/email',
       {
-        sender: { name: 'TripIndia', email: process.env.BREVO_USER },
+        sender: { name: 'TripIndia', email: process.env.SENDER_EMAIL },
         to: [{ email: process.env.BREVO_USER, name: 'TripIndia Admin' }],
         replyTo: { email: email, name: name },
         subject: `New Contact Message from ${name}`,
