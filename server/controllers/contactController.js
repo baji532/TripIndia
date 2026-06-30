@@ -13,7 +13,7 @@ exports.sendContactMessage = async (req, res) => {
       'https://api.brevo.com/v3/smtp/email',
       {
         sender: { name: 'TripIndia', email: process.env.SENDER_EMAIL },
-        to: [{ email: process.env.BREVO_USER, name: 'TripIndia Admin' }],
+        to: [{ email: process.env.SENDER_EMAIL, name: 'TripIndia Admin' }],
         replyTo: { email: email, name: name },
         subject: `New Contact Message from ${name}`,
         htmlContent: `
